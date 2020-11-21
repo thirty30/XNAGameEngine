@@ -28,13 +28,25 @@ namespace GameEngine
             }
         }
 
-        public T AddComponent<T>() where T : new()
+        public T AddComponent<T>() where T : Component, new()
         {
             T obj = new T();
             Component com = obj as Component;
             com.gameObject = this;
             this.mComponents.Add(com);
             return obj;
+        }
+
+        public T GetComponent<T>() where T : Component
+        {
+            foreach (Component com in this.mComponents)
+            {
+                if (typeof(T) == com.GetType())
+                {
+                    return (T)com;
+                }
+            }
+            return null;
         }
 
         public void InitComponents()

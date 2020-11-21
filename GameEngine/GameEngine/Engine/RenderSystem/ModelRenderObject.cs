@@ -5,10 +5,10 @@ namespace GameEngine
 {
     public class ModelRenderObject : RenderObject
     {
-        private readonly Model mModel = null;
-        private readonly Effect mShader = null;
+        private Model mModel = null;
+        private Effect mShader = null;
 
-        public ModelRenderObject(Model aModel, Effect aShader)
+        public void Init(Model aModel, Effect aShader)
         {
             this.mModel = aModel;
             this.mShader = aShader;

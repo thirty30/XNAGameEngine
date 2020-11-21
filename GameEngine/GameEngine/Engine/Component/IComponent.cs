@@ -15,8 +15,8 @@ namespace GameEngine
         public GameObject gameObject = null;
         public bool IsInitialized = false;
 
-        public void Initialize() { }
-        public void Update() { }
-        public void OnDestroy() { }
+        public virtual void Initialize() { }
+        public virtual void Update() { }
+        public virtual void OnDestroy() { }
     }
 }

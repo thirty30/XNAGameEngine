@@ -1,1 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/Checkerboard.jpg","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/Checkerboard_0.xnb","TextureProcessor","Texture2DContent",2187,11049,0.0319354
+"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/DiffuseShader.fx","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/DiffuseShader.xnb","EffectProcessor","CompiledEffectContent",1617,2771,0.4140126
+"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/FlatPlane.FBX","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/FlatPlane.xnb","ModelProcessor","ModelContent",20864,1516,0.1521956

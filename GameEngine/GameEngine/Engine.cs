@@ -16,6 +16,8 @@ namespace GameEngine
         public Engine()
         {
             this.mGraphics = new GraphicsDeviceManager(this);
+            this.mGraphics.PreferredBackBufferWidth = 1280;
+            this.mGraphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _Instance = this;
@@ -27,6 +29,9 @@ namespace GameEngine
             RenderSystem.GetSingleton().Initialize();
             GameObjectManager.GetSingleton().Initialize();
             this.MainCamera = new Camera();
+            this.MainCamera.Position = new Vector3(0, 100, 100);
+            this.MainCamera.Ratio = this.mGraphics.GraphicsDevice.Viewport.AspectRatio;
+            this.MainCamera.Far = 1000.0f;
 
             base.Initialize();
         }
@@ -36,6 +41,11 @@ namespace GameEngine
             this.mSpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            GameObject go = new GameObject();
+            ModelRenderObject mr = go.AddComponent<ModelRenderObject>();
+            mr.Init(this.Content.Load<Model>("FlatPlane"), this.Content.Load<Effect>("DiffuseShader"));
+            go.AddComponent<TestLogic>();
+            go.LocalRotation = Quaternion.CreateFromAxisAngle(Vector3.Right, MathHelper.ToRadians(-90.0f));
         }
 
         protected override void Update(GameTime gameTime)
@@ -55,6 +65,11 @@ namespace GameEngine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            //DepthStencilState state = new DepthStencilState();
+            //state.DepthBufferEnable = true;
+            //state.DepthBufferWriteEnable = true;
+            //GraphicsDevice.DepthStencilState = state;
+
             RenderSystem.GetSingleton().Update();
 
 
