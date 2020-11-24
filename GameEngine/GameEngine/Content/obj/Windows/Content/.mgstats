@@ -1,4 +1,9 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/Checkerboard.jpg","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/Checkerboard_0.xnb","TextureProcessor","Texture2DContent",2187,11049,0.0319354
-"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/DiffuseShader.fx","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/DiffuseShader.xnb","EffectProcessor","CompiledEffectContent",1617,2771,0.4140126
+"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/DirectionLightShader.fx","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/DirectionLightShader.xnb","EffectProcessor","CompiledEffectContent",1913,3723,0.633435
 "D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/FlatPlane.FBX","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/FlatPlane.xnb","ModelProcessor","ModelContent",20864,1516,0.1521956
+"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/Metal.jpg","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/Metal.xnb","TextureProcessor","Texture2DContent",292056,2560085,0.2780564
+"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/PointLightShader.fx","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/PointLightShader.xnb","EffectProcessor","CompiledEffectContent",2103,4111,0.6025563
+"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/Sphere_1.FBX","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/Sphere_1.xnb","ModelProcessor","ModelContent",31056,24316,0.325227
+"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/SpotLightShader.fx","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/SpotLightShader.xnb","EffectProcessor","CompiledEffectContent",2274,4523,0.5767896
+"D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/Teapot.FBX","D:/Projects/XNAGameEngine/GameEngine/GameEngine/Content/bin/Windows/Content/Teapot.xnb","ModelProcessor","ModelContent",95200,97692,0.1991625

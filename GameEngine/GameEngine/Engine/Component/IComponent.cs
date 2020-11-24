@@ -18,5 +18,6 @@ namespace GameEngine
         public virtual void Initialize() { }
         public virtual void Update() { }
         public virtual void OnDestroy() { }
+        public virtual void OnDraw() { }
     }
 }

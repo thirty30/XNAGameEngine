@@ -28,10 +28,37 @@ namespace GameEngine
             // TODO: Add your initialization logic here
             RenderSystem.GetSingleton().Initialize();
             GameObjectManager.GetSingleton().Initialize();
+            LightSystem.GetSingleton().Initialize();
+            //LightSystem.GetSingleton().AmbientColor = Vector3.Zero;
+
             this.MainCamera = new Camera();
-            this.MainCamera.Position = new Vector3(0, 100, 100);
+            this.MainCamera.Position = new Vector3(0, 50, 80);
             this.MainCamera.Ratio = this.mGraphics.GraphicsDevice.Viewport.AspectRatio;
             this.MainCamera.Far = 1000.0f;
+
+            GameObject go1 = new GameObject();
+            go1.AddComponent<Light>().Type = LightType.DIRECTION;
+            go1.LocalRotation = new Vector3(-45, 45, 0);
+
+            GameObject go2 = new GameObject();
+            go2.Position = new Vector3(0, 20, 30);
+            Light PointLight1 = go2.AddComponent<Light>();
+            PointLight1.Type = LightType.POINT;
+            PointLight1.Attenuation = 5000;
+            PointLight1.CutOffDistance = 50;
+            //go2.AddComponent<TestLogic>();
+
+            GameObject go3 = new GameObject();
+            go3.Position = new Vector3(0, 50, 0);
+            go3.LocalRotation = new Vector3(-90, 0, 0);
+            Light SpotLight1 = go3.AddComponent<Light>();
+            SpotLight1.Type = LightType.SPOT;
+            SpotLight1.Attenuation = 5000;
+            SpotLight1.CutOffDistance = 100;
+            SpotLight1.InnerAngle = 15;
+            SpotLight1.OuterAngle = 15;
+            go3.AddComponent<TestLogic>();
+
 
             base.Initialize();
         }
@@ -43,9 +70,34 @@ namespace GameEngine
             // TODO: use this.Content to load your game content here
             GameObject go = new GameObject();
             ModelRenderObject mr = go.AddComponent<ModelRenderObject>();
-            mr.Init(this.Content.Load<Model>("FlatPlane"), this.Content.Load<Effect>("DiffuseShader"));
-            go.AddComponent<TestLogic>();
-            go.LocalRotation = Quaternion.CreateFromAxisAngle(Vector3.Right, MathHelper.ToRadians(-90.0f));
+            PlaneMaterial material = new PlaneMaterial();
+            material.Shader = this.Content.Load<Effect>("SpotLightShader");
+            material.Tex1 = Engine.GetSingleton().Content.Load<Texture2D>("Checkerboard");
+            mr.Init(this.Content.Load<Model>("FlatPlane"), material);
+            go.LocalRotation = new Vector3(-90, 0, 0);
+            //go.Position = new Vector3(0, -40, 0);
+
+            for (int i = 0; i < 1; i++)
+            {
+                GameObject teapot = new GameObject();
+                ModelRenderObject mr2 = teapot.AddComponent<ModelRenderObject>();
+                TeapotMaterial material2 = new TeapotMaterial();
+                material2.Shader = this.Content.Load<Effect>("SpotLightShader");
+                //material2.Shader = this.Content.Load<Effect>("DirectionLightShader");
+                material2.Tex1 = Engine.GetSingleton().Content.Load<Texture2D>("Metal");
+                mr2.Init(this.Content.Load<Model>("Teapot"), material2);
+
+                if (i == 0)
+                    teapot.Position = new Vector3(0, 0, 0);
+                else if (i == 1)
+                    teapot.Position = new Vector3(-30, -20, 0);
+                else
+                    teapot.Position = new Vector3(0, -20, 20);
+
+                teapot.LocalScale *= 50;
+                teapot.LocalRotation = new Vector3(-90, 0, 0);
+            }
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -58,20 +110,18 @@ namespace GameEngine
             this.MainCamera.Update();
             GameObjectManager.GetSingleton().Update();
 
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            //DepthStencilState state = new DepthStencilState();
-            //state.DepthBufferEnable = true;
-            //state.DepthBufferWriteEnable = true;
-            //GraphicsDevice.DepthStencilState = state;
+            GraphicsDevice.Clear(Color.Black);
+            DepthStencilState state = new DepthStencilState();
+            state.DepthBufferEnable = true;
+            state.DepthBufferWriteEnable = true;
+            GraphicsDevice.DepthStencilState = state;
 
             RenderSystem.GetSingleton().Update();
-
 
             base.Draw(gameTime);
         }

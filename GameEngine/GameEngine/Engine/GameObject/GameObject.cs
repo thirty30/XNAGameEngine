@@ -10,8 +10,10 @@ namespace GameEngine
         public long GGUID { get { return this.mGGUID; } }
 
         public Vector3 Position = Vector3.Zero;
-        public Quaternion LocalRotation;
+        public Vector3 LocalRotation = Vector3.Zero;
         public Vector3 LocalScale = Vector3.One;
+
+        public bool IsActive = true;
 
         public GameObject()
         {

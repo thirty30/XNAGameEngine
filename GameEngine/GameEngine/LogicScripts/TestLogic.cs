@@ -1,28 +1,34 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine
 {
     public class TestLogic : Component
     {
-        private Texture mTex;
-        private ModelRenderObject mMRO;
-
         public override void Initialize()
         {
-            this.mTex = Engine.GetSingleton().Content.Load<Texture>("Checkerboard");
-            this.mMRO = this.gameObject.GetComponent<ModelRenderObject>();
         }
 
         public override void Update()
         {
-            this.mMRO.Shader.Parameters["Texture"].SetValue(this.mTex);
-            this.mMRO.Shader.Parameters["LightDir"].SetValue(new Vector3(-1, -1, -1));
-            this.mMRO.Shader.Parameters["LightColor"].SetValue(new Vector3(0.8f, 0.8f, 0.8f));
-            this.mMRO.Shader.Parameters["AmbientColor"].SetValue(new Vector3(0.15f, 0.15f, 0.15f));
-            this.mMRO.Shader.Parameters["CameraPosition"].SetValue(new Vector3(0, 0, 1.5f));
-            this.mMRO.Shader.Parameters["SpecularColor"].SetValue(new Vector3(0, 0, 1));
+            float velocity = 0.5f;
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                this.gameObject.Position += Vector3.Left * velocity;
+            }
+            else if(Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                this.gameObject.Position += Vector3.Right * velocity;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                this.gameObject.Position += Vector3.Forward * velocity;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                this.gameObject.Position += Vector3.Backward * velocity;
+            }
         }
     }
 }
