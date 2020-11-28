@@ -18,8 +18,7 @@ namespace GameEngine
         public Vector3 LightColor = Vector3.One;
         public float Attenuation;
         public float CutOffDistance;
-        public float InnerAngle;
-        public float OuterAngle;
+        public float ConeAngle;
 
         public Light()
         {

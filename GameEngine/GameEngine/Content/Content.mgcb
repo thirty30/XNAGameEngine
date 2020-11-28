@@ -25,12 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:Checkerboard.jpg
 
-#begin DirectionLightShader.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:DirectionLightShader.fx
-
 #begin FlatPlane.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -62,12 +56,29 @@
 /processorParam:TextureFormat=Color
 /build:Metal.jpg
 
-#begin PointLightShader.fx
+#begin Shaders/DirectionLightShader.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
-/processorParam:Defines=
-/build:PointLightShader.fx
+/build:Shaders/DirectionLightShader.fx
+
+#begin Shaders/MultiLightShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/MultiLightShader.fx
+
+#begin Shaders/PointLightShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/PointLightShader.fx
+
+#begin Shaders/SpotLightShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/SpotLightShader.fx
 
 #begin Sphere_1.FBX
 /importer:FbxImporter
@@ -87,12 +98,6 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Sphere_1.FBX
-
-#begin SpotLightShader.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:SpotLightShader.fx
 
 #begin Teapot.FBX
 /importer:FbxImporter

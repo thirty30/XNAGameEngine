@@ -29,6 +29,10 @@ namespace GameEngine
             {
                 this.gameObject.Position += Vector3.Backward * velocity;
             }
+            else if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                this.gameObject.GetComponent<Light>().LightColor = new Vector3(1, 0, 0);
+            }
         }
     }
 }

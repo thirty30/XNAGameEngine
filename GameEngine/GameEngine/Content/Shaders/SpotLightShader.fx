@@ -3,8 +3,8 @@
 #define VS_SHADERMODEL vs_3_0
 #define PS_SHADERMODEL ps_3_0
 #else
-#define VS_SHADERMODEL vs_4_0_level_9_1
-#define PS_SHADERMODEL ps_4_0_level_9_1
+#define VS_SHADERMODEL vs_4_0
+#define PS_SHADERMODEL ps_4_0
 #endif
 
 matrix matM;
@@ -19,13 +19,11 @@ float3 LightColor;
 float3 LightPosition;
 float LightAttenuation;
 float LightCutOffDistance;
-float InnerAngle;
-float OuterAngle;
+float ConeAngle;
 float3 AmbientColor;
 float3 CameraPosition;
 float3 SpecularColor;
 float SpecularPower;
-
 
 sampler BasicTextureSampler = sampler_state
 {
@@ -73,7 +71,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 	float dis = distance(input.WorldPosition, LightPosition);
 
 	float d = saturate(dot(lightDir, spotDir));
-	float a = cos(radians(OuterAngle));
+	float a = cos(radians(ConeAngle));
 	float att = 0;
 	if (a <= d)
 	{

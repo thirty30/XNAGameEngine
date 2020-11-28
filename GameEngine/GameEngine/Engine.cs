@@ -18,6 +18,7 @@ namespace GameEngine
             this.mGraphics = new GraphicsDeviceManager(this);
             this.mGraphics.PreferredBackBufferWidth = 1280;
             this.mGraphics.PreferredBackBufferHeight = 720;
+            this.mGraphics.GraphicsProfile = GraphicsProfile.HiDef;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _Instance = this;
@@ -40,12 +41,13 @@ namespace GameEngine
             go1.AddComponent<Light>().Type = LightType.DIRECTION;
             go1.LocalRotation = new Vector3(-45, 45, 0);
 
-            GameObject go2 = new GameObject();
-            go2.Position = new Vector3(0, 20, 30);
-            Light PointLight1 = go2.AddComponent<Light>();
-            PointLight1.Type = LightType.POINT;
-            PointLight1.Attenuation = 5000;
-            PointLight1.CutOffDistance = 50;
+            //GameObject go2 = new GameObject();
+            //go2.Position = new Vector3(0, 20, 30);
+            //Light PointLight1 = go2.AddComponent<Light>();
+            //PointLight1.Type = LightType.POINT;
+            //PointLight1.Attenuation = 5000;
+            //PointLight1.CutOffDistance = 50;
+            ////PointLight1.LightColor = new Vector3(1, 0, 0);
             //go2.AddComponent<TestLogic>();
 
             GameObject go3 = new GameObject();
@@ -55,8 +57,8 @@ namespace GameEngine
             SpotLight1.Type = LightType.SPOT;
             SpotLight1.Attenuation = 5000;
             SpotLight1.CutOffDistance = 100;
-            SpotLight1.InnerAngle = 15;
-            SpotLight1.OuterAngle = 15;
+            SpotLight1.ConeAngle = 15;
+            SpotLight1.LightColor = new Vector3(1, 0, 0);
             go3.AddComponent<TestLogic>();
 
 
@@ -70,8 +72,12 @@ namespace GameEngine
             // TODO: use this.Content to load your game content here
             GameObject go = new GameObject();
             ModelRenderObject mr = go.AddComponent<ModelRenderObject>();
-            PlaneMaterial material = new PlaneMaterial();
-            material.Shader = this.Content.Load<Effect>("SpotLightShader");
+            MultiLightMaterial material = new MultiLightMaterial();
+            material.Shader = this.Content.Load<Effect>("Shaders/MultiLightShader");
+
+            //PlaneMaterial material = new PlaneMaterial();
+            //material.Shader = this.Content.Load<Effect>("Shaders/SpotLightShader");
+
             material.Tex1 = Engine.GetSingleton().Content.Load<Texture2D>("Checkerboard");
             mr.Init(this.Content.Load<Model>("FlatPlane"), material);
             go.LocalRotation = new Vector3(-90, 0, 0);
@@ -81,8 +87,8 @@ namespace GameEngine
             {
                 GameObject teapot = new GameObject();
                 ModelRenderObject mr2 = teapot.AddComponent<ModelRenderObject>();
-                TeapotMaterial material2 = new TeapotMaterial();
-                material2.Shader = this.Content.Load<Effect>("SpotLightShader");
+                MultiLightMaterial material2 = new MultiLightMaterial();
+                material2.Shader = this.Content.Load<Effect>("Shaders/MultiLightShader");
                 //material2.Shader = this.Content.Load<Effect>("DirectionLightShader");
                 material2.Tex1 = Engine.GetSingleton().Content.Load<Texture2D>("Metal");
                 mr2.Init(this.Content.Load<Model>("Teapot"), material2);

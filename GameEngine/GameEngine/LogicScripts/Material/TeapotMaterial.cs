@@ -32,8 +32,7 @@ namespace GameEngine
             {
                 this.Shader.Parameters["LightAttenuation"].SetValue(light.Attenuation);
                 this.Shader.Parameters["LightCutOffDistance"].SetValue(light.CutOffDistance);
-                this.Shader.Parameters["InnerAngle"].SetValue(light.InnerAngle);
-                this.Shader.Parameters["OuterAngle"].SetValue(light.OuterAngle);
+                this.Shader.Parameters["ConeAngle"].SetValue(light.ConeAngle);
             }
             this.Shader.Parameters["AmbientColor"].SetValue(LightSystem.GetSingleton().AmbientColor);
             this.Shader.Parameters["CameraPosition"].SetValue(Engine.GetSingleton().MainCamera.Position);
