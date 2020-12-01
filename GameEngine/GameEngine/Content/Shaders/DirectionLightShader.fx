@@ -65,7 +65,8 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 {
 	float3 diffuse = DiffuseColor * tex2D(BasicTextureSampler, input.UV);
 	LightDir = normalize(LightDir);
-	float3 lambertian = saturate(dot(-LightDir, input.Normal)) * LightColor;
+	//float3 lambertian = saturate(dot(-LightDir, input.Normal)) * LightColor;
+	float3 lambertian = dot(-LightDir, input.Normal) * 0.5 + 0.5;
 	float3 ref = reflect(-LightDir, input.Normal);
 	float3 specular = pow(saturate(dot(ref, input.ViewDir)), SpecularPower) * SpecularColor;
 	float3 output = (lambertian + AmbientColor + specular) * diffuse;

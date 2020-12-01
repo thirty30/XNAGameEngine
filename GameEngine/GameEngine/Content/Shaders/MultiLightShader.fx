@@ -28,6 +28,10 @@ float LightAttenuation[LightsLimit];
 float LightCutOffDistance[LightsLimit];
 float ConeAngle[LightsLimit];
 
+float fogStart = 50;
+float fogEnd = 90;
+float3 fogColor = float3(0.2, 0.2, 0.2);
+
 
 sampler BasicTextureSampler = sampler_state
 {
@@ -104,6 +108,9 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 			output += AmbientColor * diffuse + att * diffuse * (lambertian + specular);
 		}
 	}
+	float fogDis = length(input.WorldPosition - CameraPosition);
+	float fog = saturate((fogDis - fogStart) / (fogEnd - fogStart));
+	output = lerp(output, fogColor, fog);
 	return float4(output, 1.0);
 }
 

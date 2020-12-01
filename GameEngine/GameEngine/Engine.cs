@@ -12,6 +12,7 @@ namespace GameEngine
         public static Engine GetSingleton() { return _Instance; }
 
         public Camera MainCamera;
+        public Skybox SkyBox;
 
         public Engine()
         {
@@ -30,16 +31,23 @@ namespace GameEngine
             RenderSystem.GetSingleton().Initialize();
             GameObjectManager.GetSingleton().Initialize();
             LightSystem.GetSingleton().Initialize();
-            //LightSystem.GetSingleton().AmbientColor = Vector3.Zero;
+            LightSystem.GetSingleton().AmbientColor = Vector3.Zero;
 
             this.MainCamera = new Camera();
             this.MainCamera.Position = new Vector3(0, 50, 80);
             this.MainCamera.Ratio = this.mGraphics.GraphicsDevice.Viewport.AspectRatio;
             this.MainCamera.Far = 1000.0f;
 
+            this.SkyBox = new Skybox();
+            this.SkyBox.Init(
+                this.Content.Load<Model>("Skybox/Cube"),
+                this.Content.Load<TextureCube>("Skybox/Skybox"),
+                this.Content.Load<Effect>("Skybox/SkyboxShader")
+                );
+
             GameObject go1 = new GameObject();
             go1.AddComponent<Light>().Type = LightType.DIRECTION;
-            go1.LocalRotation = new Vector3(-45, 45, 0);
+            go1.LocalRotation = new Vector3(-45, 90, 0);
 
             //GameObject go2 = new GameObject();
             //go2.Position = new Vector3(0, 20, 30);
@@ -72,12 +80,12 @@ namespace GameEngine
             // TODO: use this.Content to load your game content here
             GameObject go = new GameObject();
             ModelRenderObject mr = go.AddComponent<ModelRenderObject>();
-            MultiLightMaterial material = new MultiLightMaterial();
-            material.Shader = this.Content.Load<Effect>("Shaders/MultiLightShader");
-
-            //PlaneMaterial material = new PlaneMaterial();
-            //material.Shader = this.Content.Load<Effect>("Shaders/SpotLightShader");
-
+            //MultiLightMaterial material = new MultiLightMaterial();
+            //material.Shader = this.Content.Load<Effect>("Shaders/MultiLightShader");
+            
+            PlaneMaterial material = new PlaneMaterial();
+            material.Shader = this.Content.Load<Effect>("Shaders/DirectionLightShader");
+            
             material.Tex1 = Engine.GetSingleton().Content.Load<Texture2D>("Checkerboard");
             mr.Init(this.Content.Load<Model>("FlatPlane"), material);
             go.LocalRotation = new Vector3(-90, 0, 0);
@@ -87,11 +95,14 @@ namespace GameEngine
             {
                 GameObject teapot = new GameObject();
                 ModelRenderObject mr2 = teapot.AddComponent<ModelRenderObject>();
-                MultiLightMaterial material2 = new MultiLightMaterial();
-                material2.Shader = this.Content.Load<Effect>("Shaders/MultiLightShader");
-                //material2.Shader = this.Content.Load<Effect>("DirectionLightShader");
+                TeapotMaterial material2 = new TeapotMaterial();
+                material2.Shader = this.Content.Load<Effect>("Shaders/DirectionLightShader");
+                //MultiLightMaterial material2 = new MultiLightMaterial();
+                //material2.Shader = this.Content.Load<Effect>("Shaders/MultiLightShader");
+
                 material2.Tex1 = Engine.GetSingleton().Content.Load<Texture2D>("Metal");
                 mr2.Init(this.Content.Load<Model>("Teapot"), material2);
+                //teapot.LocalScale = Vector3.One * 0.3f;
 
                 if (i == 0)
                     teapot.Position = new Vector3(0, 0, 0);
@@ -122,10 +133,13 @@ namespace GameEngine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            DepthStencilState state = new DepthStencilState();
-            state.DepthBufferEnable = true;
-            state.DepthBufferWriteEnable = true;
-            GraphicsDevice.DepthStencilState = state;
+            RasterizerState rasterizerstate = new RasterizerState();
+            rasterizerstate.CullMode = CullMode.None;
+            GraphicsDevice.RasterizerState = rasterizerstate;
+
+            GraphicsDevice.DepthStencilState = DepthStencilState.None;
+            this.SkyBox.Draw();
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
             RenderSystem.GetSingleton().Update();
 
