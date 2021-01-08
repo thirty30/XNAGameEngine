@@ -81,7 +81,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 			float3 lambertian = saturate(dot(-lightDir, input.Normal)) * LightColor[i];
 			float3 ref = reflect(-lightDir, input.Normal);
 			float3 specular = pow(saturate(dot(ref, input.ViewDir)), SpecularPower) * SpecularColor;
-			output += (lambertian + AmbientColor + specular) * diffuse;
+			output += (lambertian + specular) * diffuse;
 		}
 		else if (LightType[i] == 1)	// point light
 		{
@@ -91,7 +91,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 			float att = pow(1.0 - saturate(dis / LightAttenuation[i]), LightCutOffDistance[i]);
 			float3 ref = reflect(-light2vertex, input.Normal);
 			float3 specular = pow(saturate(dot(ref, input.ViewDir)), SpecularPower) * SpecularColor;
-			output += AmbientColor * diffuse + att * diffuse * (lambertian + specular);
+			output += att * diffuse * (lambertian + specular);
 		}
 		else if (LightType[i] == 2) // spot light
 		{
@@ -105,12 +105,13 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 			if (a <= d) { att = 1.0 - pow(saturate(a / d), LightCutOffDistance[i]); }
 			float3 ref = reflect(-light2vertex, input.Normal);
 			float3 specular = pow(saturate(dot(ref, input.ViewDir)), SpecularPower) * SpecularColor;
-			output += AmbientColor * diffuse + att * diffuse * (lambertian + specular);
+			output += att * diffuse * (lambertian + specular);
 		}
 	}
-	float fogDis = length(input.WorldPosition - CameraPosition);
-	float fog = saturate((fogDis - fogStart) / (fogEnd - fogStart));
-	output = lerp(output, fogColor, fog);
+	output += AmbientColor * diffuse;
+	//float fogDis = length(input.WorldPosition - CameraPosition);
+	//float fog = saturate((fogDis - fogStart) / (fogEnd - fogStart));
+	//output = lerp(output, fogColor, fog);
 	return float4(output, 1.0);
 }
 

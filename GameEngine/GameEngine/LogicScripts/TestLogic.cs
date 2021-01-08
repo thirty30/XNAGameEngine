@@ -29,9 +29,22 @@ namespace GameEngine
             {
                 this.gameObject.Position += Vector3.Backward * velocity;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.R))
+
+            if (Keyboard.GetState().IsKeyDown(Keys.I))
             {
-                this.gameObject.GetComponent<Light>().LightColor = new Vector3(1, 0, 0);
+                this.gameObject.LocalRotation += new Vector3(0.5f, 0, 0);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.K))
+            {
+                this.gameObject.LocalRotation += new Vector3(-0.5f, 0, 0);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.J))
+            {
+                this.gameObject.LocalRotation += new Vector3(0, 0.5f, 0);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.L))
+            {
+                this.gameObject.LocalRotation += new Vector3(0, -0.5f, 0);
             }
         }
     }

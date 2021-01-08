@@ -6,6 +6,7 @@ namespace GameEngine
     public class MultiLightMaterial : IMaterial
     {
         public Texture2D Tex1;
+        public Vector2 Tiling = new Vector2(1, 1);
         private int[] mLightType = new int[8];
         private Vector3[] mLightPosition = new Vector3[8];
         private Vector3[] mLightDir = new Vector3[8];
@@ -23,7 +24,7 @@ namespace GameEngine
             this.Shader.Parameters["matMTI"].SetValue(MTI);
             this.Shader.Parameters["DiffuseColor"].SetValue(new Vector3(1, 1, 1));
             this.Shader.Parameters["Texture"].SetValue(this.Tex1);
-            this.Shader.Parameters["Tiling"].SetValue(new Vector2(1, 1));
+            this.Shader.Parameters["Tiling"].SetValue(this.Tiling);
             this.Shader.Parameters["AmbientColor"].SetValue(LightSystem.GetSingleton().AmbientColor);
             this.Shader.Parameters["CameraPosition"].SetValue(Engine.GetSingleton().MainCamera.Position);
             this.Shader.Parameters["SpecularColor"].SetValue(new Vector3(1, 1, 1));

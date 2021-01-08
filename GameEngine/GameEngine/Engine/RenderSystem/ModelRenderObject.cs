@@ -35,7 +35,7 @@ namespace GameEngine
             matM *= Matrix.CreateScale(this.gameObject.LocalScale);
             float x = MathHelper.ToRadians(this.gameObject.LocalRotation.X);
             float y = MathHelper.ToRadians(this.gameObject.LocalRotation.Y);
-            float z= MathHelper.ToRadians(this.gameObject.LocalRotation.Z);
+            float z = MathHelper.ToRadians(this.gameObject.LocalRotation.Z);
             Quaternion quatRotation = Quaternion.CreateFromYawPitchRoll(y, x, z);
             matM *= Matrix.CreateFromQuaternion(quatRotation);
             matM *= Matrix.CreateTranslation(this.gameObject.Position);
